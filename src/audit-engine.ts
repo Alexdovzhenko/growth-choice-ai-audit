@@ -285,11 +285,17 @@ export async function runAudit(rawUrl: string, _opts: { timeoutMs?: number } = {
 
   // ── Structured data ──
   let sdScore = 0
-  const blocks = html.jsonLdBlocks.filter((b): b is Record<string, unknown> => typeof b === 'object' && b !== null)
+  const flatten = (value: unknown): Record<string, unknown>[] => {
+    if (Array.isArray(value)) return value.flatMap(flatten)
+    if (typeof value !== 'object' || value === null) return []
+    const node = value as Record<string, unknown>
+    return [node, ...(Array.isArray(node['@graph']) ? node['@graph'].flatMap(flatten) : [])]
+  }
+  const blocks = html.jsonLdBlocks.flatMap(flatten)
   if (blocks.length > 0) {
     sdScore += 5
     type N = { '@type'?: unknown; name?: unknown; url?: unknown; sameAs?: unknown }
-    const getType = (b: unknown): string | null => { const t = (b as N)['@type']; return typeof t === 'string' ? t : Array.isArray(t) ? (t[0] ?? null) : null }
+    const getType = (b: unknown): string | null => { const t = (b as N)['@type']; return typeof t === 'string' ? t : Array.isArray(t) ? t.find(v => typeof v === 'string' && ['Organization','LocalBusiness','Corporation','ProfessionalService','FinancialService','LegalService','WebSite'].includes(v)) ?? null : null }
     const ORG = ['Organization','LocalBusiness','Corporation','ProfessionalService','FinancialService','LegalService']
     const org = blocks.find(b => ORG.includes(getType(b) ?? '')) as N | undefined
     if (org) {

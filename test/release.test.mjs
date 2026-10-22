@@ -68,3 +68,10 @@ for (const args of [['--timeout','abc','https://example.com'],['https://example.
   test(`CLI usage validation ${args.join(' ')}`, () => { const r=spawnSync(process.execPath,['dist/cli.js',...args],{encoding:'utf8'}); assert.equal(r.status,2) })
 }
 test('CLI help and version', () => { for(const arg of ['--help','--version']) { const r=spawnSync(process.execPath,['dist/cli.js',arg],{encoding:'utf8'}); assert.equal(r.status,0); assert.match(r.stdout,/0\.1\.0/) } })
+
+test('SDK recognizes organization and website nodes inside JSON-LD graphs', async () => {
+  fixture()
+  globalThis.fetch = async url => new URL(url).pathname === '/' ? new Response('<title>Example services</title><script type="application/ld+json">{"@graph":[null,{"@type":["Thing","Organization"],"name":"Example","url":"https://example.com","sameAs":["https://example.org"]},{"@type":"WebSite"}]}</script>') : new Response('',{status:404})
+  const result = await runAudit('https://example.com')
+  assert.equal(result.categories.structured_data.score,20)
+})

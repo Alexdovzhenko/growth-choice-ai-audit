@@ -4,7 +4,7 @@
 
 Unreleased candidate — publication pending approval.
 
-Release preparation fixes: validate IPv4/IPv6 and every redirect, bound body reads and DNS waits, honor timeout options, validate CLI arguments, handle null JSON-LD, and align discovery scoring (16/2/1/1). Node.js 22+; ESM SDK export; 22 regression tests.
+Release preparation fixes: validate IPv4/IPv6 and every redirect, bound body reads and DNS waits, honor timeout options, validate CLI arguments, handle null JSON-LD and graph nodes, and align discovery scoring (16/2/1/1). Node.js 22+; ESM SDK export; 23 regression tests.
 
 - AI crawler accessibility check (robots.txt rules for GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Googlebot, Bingbot)
 - Technical SEO checks (HTTPS, HTTP status, title tag, meta description, canonical URL, H1 structure)
