@@ -1,0 +1,64 @@
+{
+  "name": "@growth-choice/ai-audit",
+  "version": "0.1.0",
+  "description": "Technical AI search readiness audit for any public website. Checks AI crawler access, technical SEO, structured data, and AI discovery resources.",
+  "license": "MIT",
+  "author": "Growth Choice <info@growth-choice.com> (https://growth-choice.com)",
+  "homepage": "https://growth-choice.com/ai-visibility-audit",
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "growth-choice-ai": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "keywords": [
+    "AI visibility",
+    "AI SEO",
+    "AEO audit",
+    "ChatGPT search",
+    "robots.txt",
+    "llms.txt",
+    "structured data",
+    "SEO audit",
+    "AI crawler",
+    "OAI-SearchBot"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5",
+    "tsx": "^4",
+    "@types/node": "^22"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexdovzhenko/growth-choice-ai-audit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alexdovzhenko/growth-choice-ai-audit/issues"
+  }
+}
