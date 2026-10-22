@@ -96,6 +96,40 @@ The CLI resolves DNS and fetches the target URL directly from your machine. No a
 
 ---
 
+## Agent Skill
+
+An agent skill is available in `skills/growth-choice-ai-audit/SKILL.md`. It guides an AI assistant to run this CLI, parse the JSON output, and produce prioritized recommendations.
+
+**What the skill does:** identifies the URL, explains the scope limitation, verifies Node.js ≥22, runs the pinned CLI with `--json`, handles failure cases (unreachable, timeout, SSRF blocked, oversized response, existing JSON report), parses the structured output, and presents scored findings with an action table.
+
+**What it does not do:** it does not measure actual AI rankings, citations, traffic, or ChatGPT mentions. It does not deploy changes or modify production systems.
+
+**Requirements:** Node.js 22 or later.
+
+**Install the skill (Claude Code):**
+
+```bash
+npx skills add Alexdovzhenko/growth-choice-ai-audit --skill growth-choice-ai-audit -a claude-code
+```
+
+This command has not been tested against the published branch. It is the expected form based on current Skills CLI documentation; verify installation with `npx skills list` after running it.
+
+**Example requests the skill responds to:**
+
+- "Audit my website's technical readiness for AI search."
+- "Check whether GPTBot can crawl my site."
+- "Explain this Growth Choice audit JSON."
+- "Run an AEO technical audit on https://example.com."
+- "Why is my AI discovery score low?"
+
+**The skill will decline:**
+
+- Writing Instagram captions, general copywriting, or marketing strategy (not in scope).
+
+**Skill source:** `skills/growth-choice-ai-audit/SKILL.md`
+
+---
+
 ## Contributing
 
 This package is not yet publicly released. Its repository is currently private at https://github.com/Alexdovzhenko/growth-choice-ai-audit. Public access and npm publication require owner approval.
